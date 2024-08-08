@@ -18,7 +18,7 @@ const agregarTarea = async (req, res) =>{
         return res.status(400).json({msg:"isComplete tiene que ser Booleano"})
     }
 
-    await connection.query(`INSERT INTO tasks(title, description, isComplete) VALUES(?,?,?)`, [title, description, isComplete])
+    await connection.query(`INSERT INTO tasks(title, description, isComplete) VALUES(?,?,?)`, [title.trim(), description.trim(), isComplete])
     res.send("Se agregaron los datos correctamente")
 
     connection.end()
@@ -66,7 +66,7 @@ const actualizarTarea = async(req,res) =>{
         return res.status(400).json({msg:"isComplete tiene que ser Booleano"})
     }
 
-    await connection.query(`UPDATE tasks SET title = ?, description = ?, isComplete = ? WHERE id = ?`, [title, description, isComplete, taskID])
+    await connection.query(`UPDATE tasks SET title = ?, description = ?, isComplete = ? WHERE id = ?`, [title.trim(), description.trim(), isComplete, taskID])
     res.status(200).json({msg:"Tarea editada con éxito"})
     connection.end()
 }
