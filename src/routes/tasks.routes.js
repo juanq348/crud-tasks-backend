@@ -3,7 +3,11 @@ const router = Router()
 
 import { agregarTarea, obtenerTarea, obtenerTareaID, eliminarTarea, actualizarTarea } from "../controllers/task.controllers.js"
 
-router.post("/", agregarTarea)
+import { validacionesTasks } from "../validations.js"
+import { applyValidation } from "../applyValidation.js"
+import { body } from "express-validator"
+
+router.post("/", validacionesTasks, applyValidation, agregarTarea)
 
 router.get("/", obtenerTarea)
 
