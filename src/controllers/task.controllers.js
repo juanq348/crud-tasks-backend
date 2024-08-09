@@ -1,8 +1,8 @@
-const {newConnection} = require("../db.js")
+import { db } from "../db.js"
 
-const agregarTarea = async (req, res) =>{
+export const agregarTarea = async (req, res) =>{
     console.log(req.body)
-    const connection = await newConnection()
+    const connection = await db()
     
     const {title, description, isComplete} = req.body
 
@@ -24,15 +24,15 @@ const agregarTarea = async (req, res) =>{
     connection.end()
 }
 
-const obtenerTarea = async (req,res) => {
-    const connection = await newConnection()
+export const obtenerTarea = async (req,res) => {
+    const connection = await db()
     const results = await connection.query(`SELECT * FROM tasks`)
     res.json(results[0])
     connection.end()
 }
 
-const obtenerTareaID = async(req,res) =>{
-    const connection = await newConnection()
+export const obtenerTareaID = async(req,res) =>{
+    const connection = await db()
     const taskID = req.params.id
 
     const results = await connection.query(`SELECT * FROM tasks WHERE id = ?`, taskID)
@@ -40,8 +40,8 @@ const obtenerTareaID = async(req,res) =>{
     connection.end()
 }
 
-const eliminarTarea = async(req,res) =>{
-    const connection = await newConnection()
+export const eliminarTarea = async(req,res) =>{
+    const connection = await db()
     const taskID = req.params.id
 
     await connection.query(`DELETE FROM tasks WHERE id = ?`, [taskID])
@@ -49,8 +49,8 @@ const eliminarTarea = async(req,res) =>{
     connection.end()
 }
 
-const actualizarTarea = async(req,res) =>{
-    const connection = await newConnection()
+export const actualizarTarea = async(req,res) =>{
+    const connection = await db()
     const taskID = req.params.id
     const {title, description, isComplete} = req.body
 
@@ -71,10 +71,3 @@ const actualizarTarea = async(req,res) =>{
     connection.end()
 }
 
-module.exports = {
-    agregarTarea,
-    obtenerTarea,
-    obtenerTareaID,
-    eliminarTarea,
-    actualizarTarea
-}

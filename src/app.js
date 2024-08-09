@@ -1,8 +1,8 @@
-const express = require("express")
+import express, { json } from "express"
+import { router } from "./routes/tasks.routes.js"
 const app = express()
 
-app.use(express.json())
-
-app.use(require("./routes/tasks.routes.js"))
+app.use(json())
+app.use("/tasks", router)
 
 app.listen(3000, console.log("El servidor esta funcionando correctamente"))
