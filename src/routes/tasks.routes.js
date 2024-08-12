@@ -15,6 +15,6 @@ router.get("/:id", obtenerTareaID)
 
 router.delete("/:id", eliminarTarea)
 
-router.put("/:id", actualizarTarea)
+router.put("/:id", validacionesTasks, applyValidation, actualizarTarea)
 
 export {router}
